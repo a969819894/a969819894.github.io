@@ -145,33 +145,35 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-New Document" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/24/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <a href="/2016/12/24/hello-world/" class="archive-article-date">
-  	<time datetime="2016-12-24T15:12:04.777Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-24</time>
-</a>
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h1 id="Javascript-面向对象编程（一）：封装"><a href="#Javascript-面向对象编程（一）：封装" class="headerlink" title="Javascript 面向对象编程（一）：封装"></a>Javascript 面向对象编程（一）：封装</h1><hr>
+<p>作者：段浩</p>
+<p>学习<strong>Javascript</strong>，最难的地方是什么？<br>我觉得，<em>Object</em>（对象）最难。因为Javascript的Object模型很独特，和其他语言都不一样，初学者不容易掌握。</p>
+<p>##一、 生成实例对象的原始模式</p>
+<p>假定我们把猫看成一个对象，它有”名字”和”颜色”两个属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var Cat = &#123;</div><div class="line"></div><div class="line"></div><div class="line">　　　　name : &apos;&apos;,</div><div class="line"></div><div class="line"></div><div class="line">　　　　color : &apos;&apos;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>现在，我们需要根据这个原型对象的规格（schema），生成两个实例对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">　var cat1 = &#123;&#125;; // 创建一个空对象</div><div class="line"></div><div class="line"></div><div class="line">　　　　cat1.name = &quot;大毛&quot;; // 按照原型对象的属性赋值</div><div class="line"></div><div class="line"></div><div class="line">　　　　cat1.color = &quot;黄色&quot;;</div><div class="line"></div><div class="line"></div><div class="line">　　var cat2 = &#123;&#125;;</div><div class="line"></div><div class="line"></div><div class="line">　　　　cat2.name = &quot;二毛&quot;;</div><div class="line"></div><div class="line"></div><div class="line">　　　　cat2.color = &quot;黑色&quot;;</div></pre></td></tr></table></figure>
+<p>好了，这就是最简单的封装了，把两个属性封装在一个对象里面。但是，这样的写法有两个缺点，一是如果多生成几个实例，写起来就非常麻烦；二是实例与原型之间，没有任何办法，可以看出有什么联系。</p>
+<p>##二、 原始模式的改进</p>
+<p>我们可以写一个函数，解决代码重复的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function Cat(name,color) &#123;</div><div class="line"></div><div class="line">　　　　return &#123;</div><div class="line"></div><div class="line">　　　　　　name:name,</div><div class="line"></div><div class="line">　　　　　　color:color</div><div class="line"></div><div class="line">　　　　&#125;</div><div class="line"></div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>然后生成实例对象，就等于是在调用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var cat1 = Cat(&quot;大毛&quot;,&quot;黄色&quot;);</div><div class="line"></div><div class="line">　　var cat2 = Cat(&quot;二毛&quot;,&quot;黑色&quot;);</div></pre></td></tr></table></figure>
+<p>这种方法的问题依然是，cat1和cat2之间没有内在的联系，不能反映出它们是同一个原型对象的实例。</p>
+<p>##三、 构造函数模式</p>
+<p>为了解决从原型对象生成实例的问题，<strong>Javascript</strong>提供了一个构造函数（<strong>Constructor</strong>）模式。</p>
+<p>所谓”构造函数”，其实就是一个普通函数，但是内部使用了<strong>this</strong>变量。对构造函数使用<strong>new</strong>运算符，就能生成实例，并且<strong>this</strong>变量会绑定在实例对象上。</p>
+<p>比如，猫的原型对象现在可以这样写，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function Cat(name,color)&#123;</div><div class="line"></div><div class="line"></div><div class="line">　　　　this.name=name;</div><div class="line"></div><div class="line"></div><div class="line">　　　　this.color=color;</div><div class="line"></div><div class="line"></div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>我们现在就可以生成实例对象了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var cat1 = new Cat(&quot;大毛&quot;,&quot;黄色&quot;);</div><div class="line"></div><div class="line">　 var cat2 = new Cat(&quot;二毛&quot;,&quot;黑色&quot;);</div><div class="line"></div><div class="line"></div><div class="line">　　alert(cat1.name); // 大毛</div><div class="line"></div><div class="line"></div><div class="line">　　alert(cat1.color); // 黄色</div></pre></td></tr></table></figure>
+<p>这时<strong>cat1</strong>和<strong>cat2</strong>会自动含有一个<strong>constructor</strong>属性，指向它们的构造函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">alert(cat1.constructor == Cat); //true</div><div class="line"></div><div class="line">　　alert(cat2.constructor == Cat); //true</div></pre></td></tr></table></figure>
 
       
 
@@ -184,7 +186,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/24/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2016/12/26/New Document/">展开全文 >></a>
         </p>
       
 
